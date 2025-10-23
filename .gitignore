@@ -2,3 +2,14 @@
 *.mp3
 *.mp4
 *.m4b
+*.webm
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.env
+.env.*
+logs/
+output/
