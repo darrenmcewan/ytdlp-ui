@@ -32,10 +32,11 @@ if url:
         
         # Format selection
         if ffmpeg_available or ffmpeg_path:
-            format_options = ["Best Quality (Video + Audio)", "Audio Only (MP3)", "Audio Only (M4A)", 
+            format_options = ["Best Quality (Video + Audio)", "Video (MP4)", "Audio Only (MP3)", "Audio Only (M4A)", 
                             "Video Only (No Audio)", "Best Single File", "Custom Format"]
         else:
-            format_options = ["Best Single File (No ffmpeg required)", "Video Only (No Audio)", "Custom Format"]
+            format_options = ["Best Single File (No ffmpeg required)", "Video (MP4 - No Audio Merge)", 
+                            "Video Only (No Audio)", "Custom Format"]
             st.info("ℹ️ Limited formats available without ffmpeg. Install ffmpeg for more options.")
         
         format_option = st.selectbox("Format", format_options)
@@ -109,6 +110,9 @@ if url:
                 # Format selection
                 if format_option == "Best Quality (Video + Audio)":
                     ydl_opts['format'] = 'bestvideo+bestaudio/best'
+                    ydl_opts['merge_output_format'] = 'mp4'
+                elif format_option == "Video (MP4)" or format_option == "Video (MP4 - No Audio Merge)":
+                    ydl_opts['format'] = 'best[ext=mp4]/bestvideo[ext=mp4]+bestaudio[ext=m4a]/best'
                     ydl_opts['merge_output_format'] = 'mp4'
                 elif format_option == "Best Single File" or format_option == "Best Single File (No ffmpeg required)":
                     ydl_opts['format'] = 'best'
